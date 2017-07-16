@@ -53,11 +53,6 @@ public class MinPriorityQueueTest {
 
 
     @Test
-    public void insert() throws Exception {
-
-    }
-
-    @Test
     public void peak() throws Exception {
         int minIdx = letterQ.peak();
         assertEquals(minIdx, 0);
@@ -87,51 +82,52 @@ public class MinPriorityQueueTest {
         assertEquals(min.c, 'z');
     }
 
-    @Test
-    public void getIdx() throws Exception {
-        int currentIdx = letterQ.getIdx(letters.get(0).idx);
-        assertEquals(0, currentIdx);
 
-        currentIdx = letterQ.getIdx(letters.get(1).idx);
-        assertEquals(3, currentIdx);
-
-        currentIdx = letterQ.getIdx(letters.get(2).idx);
-        assertEquals(2, currentIdx);
-
-        currentIdx = letterQ.getIdx(letters.get(3).idx);
-        assertEquals(4, currentIdx);
-
-        currentIdx = letterQ.getIdx(letters.get(4).idx);
-        assertEquals(1, currentIdx);
-
-        currentIdx = letterQ.getIdx(letters.get(5).idx);
-        assertEquals(5, currentIdx);
-    }
 
 //    @Test
-//    public void update() throws Exception {
-//        Letter a = letters.get(0);
-//        int aIdx = letterQ.getIdx(a.idx);
-//        a.c='m';
-//        letterQ.update(aIdx);
+//    public void getIdx() throws Exception {
+//        int currentIdx = letterQ.getIdx(letters.get(0).idx);
+//        assertEquals(0, currentIdx);
 //
-//        Letter min = letterQ.extractMin();
-//        assertEquals(min.c, 'b');
+//        currentIdx = letterQ.getIdx(letters.get(1).idx);
+//        assertEquals(3, currentIdx);
 //
-//        min = letterQ.extractMin();
-//        assertEquals(min.c, 'b');
+//        currentIdx = letterQ.getIdx(letters.get(2).idx);
+//        assertEquals(2, currentIdx);
 //
-//        min = letterQ.extractMin();
-//        assertEquals(min.c, 'f');
+//        currentIdx = letterQ.getIdx(letters.get(3).idx);
+//        assertEquals(4, currentIdx);
 //
-//        min = letterQ.extractMin();
-//        assertEquals(min.c, 'm');
+//        currentIdx = letterQ.getIdx(letters.get(4).idx);
+//        assertEquals(1, currentIdx);
 //
-//        min = letterQ.extractMin();
-//        assertEquals(min.c, 'y');
-//
-//        min = letterQ.extractMin();
-//        assertEquals(min.c, 'z');
+//        currentIdx = letterQ.getIdx(letters.get(5).idx);
+//        assertEquals(5, currentIdx);
 //    }
+
+    @Test
+    public void update() throws Exception {
+        Letter a = letters.get(0);
+        a.c='m';
+        letterQ.update(0);
+
+        Letter min = letters.get(letterQ.extractMin());
+        assertEquals(min.c, 'b');
+
+        min = letters.get(letterQ.extractMin());
+        assertEquals(min.c, 'b');
+
+        min = letters.get(letterQ.extractMin());
+        assertEquals(min.c, 'f');
+
+        min = letters.get(letterQ.extractMin());
+        assertEquals(min.c, 'm');
+
+        min = letters.get(letterQ.extractMin());
+        assertEquals(min.c, 'y');
+
+        min = letters.get(letterQ.extractMin());
+        assertEquals(min.c, 'z');
+    }
 
 }

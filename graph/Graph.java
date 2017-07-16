@@ -72,7 +72,6 @@ public class Graph {
             Vertex vertex = vertices.get(closestIdx);
 
             int successorIdx;
-            int successorQIdx;
             int pathWeight;
             int updatedDist;
             ArrayList<Path> edgeList = vertex.edgeList;
@@ -81,11 +80,9 @@ public class Graph {
                 pathWeight = edgeList.get(idx).weight;
                 updatedDist = distances[closestIdx] + pathWeight;
                 if((updatedDist >0) && (updatedDist < distances[successorIdx])){
-                    successorQIdx = vertexQ.getIdx(successorIdx);
-
                     distances[successorIdx] = updatedDist;
                     previousVertices[successorIdx] = closestIdx;
-                    vertexQ.update(successorQIdx);
+                    vertexQ.update(successorIdx);
                 }
             }
         }

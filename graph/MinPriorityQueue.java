@@ -46,14 +46,15 @@ public class MinPriorityQueue<U, V>{
         return min.idx;
     }
 
-    public void update(int nodeIdx){
-        heapifyDown(getParentIdx(nodeIdx));
-        heapifyUp(nodeIdx);
+    public void update(U key){
+        Integer currentIdx = idxMap.get(key);
+        heapifyDown(getParentIdx(currentIdx));
+        heapifyUp(currentIdx);
     }
 
-    public int getIdx(U idx){
-        return idxMap.get(idx);
-    }
+//    public int getIdx(U idx){
+//        return idxMap.get(idx);
+//    }
 
 
     private static class ChildIdxs{
