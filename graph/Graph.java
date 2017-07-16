@@ -44,7 +44,7 @@ public class Graph {
             }
         }
 
-        MinPriorityQueue<Integer, ComparableByDistance, ComparableByDistance> vertexQ = new MinPriorityQueue<>();
+        MinPriorityQueue<Integer, ComparableByDistance> vertexQ = new MinPriorityQueue<>();
 
         int distance;
         int previous;
@@ -68,8 +68,8 @@ public class Graph {
 
         while(!vertexQ.isEmpty()){
 
-            ComparableByDistance closest = vertexQ.extractMin();
-            Vertex vertex = vertices.get(closest.idx);
+            int closestIdx = vertexQ.extractMin();
+            Vertex vertex = vertices.get(closestIdx);
 
             int successorIdx;
             int successorQIdx;
@@ -79,12 +79,12 @@ public class Graph {
             for(int idx=0; idx<edgeList.size(); idx++){
                 successorIdx = (int)edgeList.get(idx).tail;
                 pathWeight = edgeList.get(idx).weight;
-                updatedDist = distances[closest.idx] + pathWeight;
+                updatedDist = distances[closestIdx] + pathWeight;
                 if((updatedDist >0) && (updatedDist < distances[successorIdx])){
                     successorQIdx = vertexQ.getIdx(successorIdx);
 
                     distances[successorIdx] = updatedDist;
-                    previousVertices[successorIdx] = closest.idx;
+                    previousVertices[successorIdx] = closestIdx;
                     vertexQ.update(successorQIdx);
                 }
             }

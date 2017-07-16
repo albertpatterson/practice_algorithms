@@ -9,14 +9,14 @@ import java.util.HashMap;
  * Created by apatters on 7/15/2017.
  */
 
-public class MinPriorityQueue<U, V, T extends IndexableComparable<U, V>>{
+public class MinPriorityQueue<U, V>{
 
     private HashMap<U, Integer> idxMap = new HashMap<>();
-    private ArrayList<T> heap = new ArrayList<>();
+    private ArrayList<IndexableComparable<U, V>> heap = new ArrayList<>();
     private int size = 0;
 
 
-    public void insert(T value){
+    public void insert(IndexableComparable<U, V> value){
 
         size++;
         heap.add(size-1, value);
@@ -28,17 +28,22 @@ public class MinPriorityQueue<U, V, T extends IndexableComparable<U, V>>{
         return size==0;
     }
 
-    public T peak(){
-        return heap.get(0);
-    }
+//    public IndexableComparable<U, V> peak(){
+//        return heap.get(0);
+//    }
 
-    public T extractMin(){
-        T min = heap.get(0);
+    public U peak(){
+    return heap.get(0).idx;
+}
+
+
+    public U extractMin(){
+        IndexableComparable<U, V> min = heap.get(0);
         swap(0, size-1);
         idxMap.remove(min);
         size--;
         heapifyDown(0);
-        return min;
+        return min.idx;
     }
 
     public void update(int nodeIdx){
@@ -87,8 +92,8 @@ public class MinPriorityQueue<U, V, T extends IndexableComparable<U, V>>{
     }
 
     private void swap(int idx1, int idx2){
-        T v1 = heap.get(idx1);
-        T v2 = heap.get(idx2);
+        IndexableComparable<U, V> v1 = heap.get(idx1);
+        IndexableComparable<U, V> v2 = heap.get(idx2);
         heap.set(idx1,v2);
         idxMap.replace(v2.idx, idx1);
 
@@ -121,42 +126,17 @@ public class MinPriorityQueue<U, V, T extends IndexableComparable<U, V>>{
     }
 
     private int compareNodes(int idx1, int idx2){
-        T node1 = heap.get(idx1);
-        T node2 = heap.get(idx2);
+        IndexableComparable<U, V> node1 = heap.get(idx1);
+        IndexableComparable<U, V> node2 = heap.get(idx2);
         return node1.compareTo((V) node2);
     }
 
     private Boolean isHeapValid(int parentIdx){
         if(getChildIdxs(parentIdx).left<size){
-            T minChild = heap.get(getMinChildIdx(parentIdx));
+            IndexableComparable<U, V> minChild = heap.get(getMinChildIdx(parentIdx));
             return heap.get(parentIdx).compareTo((V) minChild)<=0;
         }else{
             return true;
         }
     }
-
 }
-
-//public class graph.MinPriorityQueue<T, U> {
-//
-//    public static class KeyValue<K, V>{
-//        K key;
-//        V value;
-//
-//        KeyValue(K key, V value){
-//            this.key = key;
-//            this.value = value;
-//        }
-//    }
-//
-//    private ArrayList<KeyValue> heap;
-//
-//    public void insert(T key, U value){
-//
-//    }
-//
-//    public KeyValue peak(){
-//        return this.heap
-//    }
-//
-//}
