@@ -1,6 +1,6 @@
-package graph;
+package dataStructures;
 
-import graph.Graph;
+import dataStructures.Graph;
 import org.junit.Before;
 import org.junit.Test;
 

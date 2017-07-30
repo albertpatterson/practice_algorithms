@@ -1,7 +1,7 @@
-package graph;
+package dataStructures;
 
-import graph.IndexableComparable;
-import graph.MinPriorityQueue;
+import dataStructures.MinPriorityQueue;
+import utils.IndexableComparable;
 import org.junit.Before;
 import org.junit.Test;
 

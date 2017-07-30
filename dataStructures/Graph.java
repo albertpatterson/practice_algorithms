@@ -1,4 +1,6 @@
-package graph;
+package dataStructures;
+
+import utils.IndexableComparable;
 
 import java.util.ArrayList;
 

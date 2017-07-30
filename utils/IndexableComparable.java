@@ -1,8 +1,8 @@
-package graph;
+package utils;
 
 /**
  * Created by apatters on 7/16/2017.
  */
 public abstract class IndexableComparable<U, V> implements Comparable<V> {
-    U idx;
+   public U idx;
 }
