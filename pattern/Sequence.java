@@ -13,6 +13,67 @@ public class Sequence<T> {
     }
 
 
+    public int[] findSubsegRK(T[][] subsegs){
+        int len = subsegs[0].length;
+        int nSubseqs = subsegs.length;
+        int nHashes = sequence.length-len+1;
+        int seqHashes[] = getSequenceHashes(len);
+        int subsegHash, seqHash;
+        T[] subseq;
+        int locations[] = new int[nSubseqs];
+        for(int subseqIdx = 0; subseqIdx< nSubseqs; subseqIdx++){
+            subseq = subsegs[subseqIdx];
+
+            if(subseq.length != len){
+                throw new Error("Subsequence length mismatck");
+            }
+
+            locations[subseqIdx]=-1;
+            subsegHash = rabinFingerPrint(subseq);
+            for(int seqIdx=0; seqIdx<nHashes; seqIdx++){
+                seqHash = seqHashes[seqIdx];
+                if(seqHash==subsegHash && compareSeqs(sequence, subseq, seqIdx)){
+                    locations[subseqIdx] = seqIdx;
+                    break;
+                }
+            }
+        }
+        return locations;
+
+
+
+//        int subsegHash = rabinFingerPrint(subseg);
+//
+//        int hash = 0;
+//        for(int i=0; i<nHashes; i++){
+//
+//            if(i==0){
+//                hash = rabinFingerPrint(sequence, 0, subseg.length);
+//            }else{
+//                T removeValue = sequence[i-1];
+//                T addValue = sequence[i-1+len];
+//                hash = rabinFingerPrint(hash, len, removeValue, addValue);
+//            }
+//
+//            if(hash==subsegHash && compareSeqs(sequence, subseg, i)){
+//                return i;
+//            }
+//        }
+//        return -1;
+    }
+
+    private int[] getSequenceHashes(int len){
+        int nHashes = sequence.length - len + 1;
+        int hashes[] = new int[nHashes];
+
+        hashes[0] = rabinFingerPrint(sequence, 0, len);
+        for(int idx = 1; idx<nHashes; idx++){
+            hashes[idx] = rabinFingerPrint(hashes[idx-1], len, sequence[idx-1],sequence[idx-1+len]);
+        }
+        return hashes;
+    }
+
+
     public int findSubsegRK(T[] subseg){
         int len = subseg.length;
         int nHashes = sequence.length-subseg.length+1;

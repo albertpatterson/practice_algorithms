@@ -14,10 +14,19 @@ public class SequenceTest {
         Integer[] ints = {1,1,1,1,1,1,1,1,1,2,3,4,1,2,3,4,5,6,7,8,9};
         Sequence seq = new Sequence(ints);
 
-        Integer[] fewInts = {4,5,6,7};
-        assertEquals(15, seq.findSubsegRK(fewInts));
+        Integer[][] fewInts = {{1,1,1,1},{4,5,6,7}};
+        int[] expLocs = {0, 15};
+        int[] actLocs = seq.findSubsegRK(fewInts);
+        assertArrayEquals(expLocs, actLocs);
 
-        fewInts[3]=17;
-        assertEquals(-1, seq.findSubsegRK(fewInts));
+        fewInts[0][0]=-1;
+        expLocs[0] = -1;
+        actLocs = seq.findSubsegRK(fewInts);
+        assertArrayEquals(expLocs, actLocs);
+
+        fewInts[1][0]=-1;
+        expLocs[1] = -1;
+        actLocs = seq.findSubsegRK(fewInts);
+        assertArrayEquals(expLocs, actLocs);
     }
 }
