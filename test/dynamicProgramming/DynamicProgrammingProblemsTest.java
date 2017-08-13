@@ -71,6 +71,58 @@ public class DynamicProgrammingProblemsTest {
         assertEquals(memVal, dynVal);
     }
 
+    @Test
+    public void optimizeKnapsackRec(){
+        int[] weights = {1};
+        int[] values = {1};
+        int totalWeight = 1;
 
 
+        int maxValue = dp.optimizeKnapsackRec(weights, values, totalWeight);
+        int expValue = 1;
+
+        assertEquals(maxValue, expValue);
+    }
+
+    @Test
+    public void optimizeKnapsackMem(){
+        int[] weights = {1};
+        int[] values = {1};
+        int totalWeight = 1;
+
+
+        int maxValue = dp.optimizeKnapsackMem(weights, values, totalWeight);
+        int expValue = 1;
+
+        assertEquals(maxValue, expValue);
+    }
+
+    @Test
+    public void optimizeKnapsackItr(){
+        int[] weights = {1};
+        int[] values = {1};
+        int totalWeight = 1;
+
+
+        int maxValue = dp.optimizeKnapsackIter(weights, values, totalWeight);
+        int expValue = 1;
+
+        assertEquals(maxValue, expValue);
+    }
+
+    @Test
+    public void optimizeKnapsackAll(){
+        int[] weights = {1,2,3,4,1,2,3};
+        int[] values =  {5,4,3,2,1,5,1};
+        int totalWeight = 7;
+
+
+        int maxValueRec = dp.optimizeKnapsackRec(weights, values, totalWeight);
+        int maxValueMem = dp.optimizeKnapsackMem(weights, values, totalWeight);
+        int maxValueIter = dp.optimizeKnapsackIter(weights, values, totalWeight);
+
+
+        assertEquals(maxValueRec, maxValueMem);
+        assertEquals(maxValueIter, maxValueMem);
+    }
 }

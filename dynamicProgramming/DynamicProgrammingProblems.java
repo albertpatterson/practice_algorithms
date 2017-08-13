@@ -1,5 +1,8 @@
 package dynamicProgramming;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 /**
  * Created by apatters on 8/10/2017.
  */
@@ -91,6 +94,86 @@ public class DynamicProgrammingProblems {
             }
         }
     }
+
+    public int optimizeKnapsackRec(int[] weights, int[] values, int totalWeight){
+        if(weights.length != values.length){
+            throw new Error("Weight and value count mismatch");
+        }
+        return optimizeKnapsackRec(weights, values, weights.length, totalWeight);
+    }
+
+    private int optimizeKnapsackRec(int[] weights, int[] values, int nItemsConsidered, int totalWeight){
+        if(totalWeight<0 || nItemsConsidered==0){
+            return 0;
+        }
+
+        int valueWith, valueWithout = optimizeKnapsackRec(weights, values, nItemsConsidered-1, totalWeight);
+        if(totalWeight-weights[nItemsConsidered-1]>=0){
+            valueWith = optimizeKnapsackRec(weights, values, nItemsConsidered-1, totalWeight-weights[nItemsConsidered-1])+values[nItemsConsidered-1];
+        }else{
+            valueWith = -1;
+        }
+
+        return Math.max(valueWith, valueWithout);
+    }
+
+    public int optimizeKnapsackMem(int [] weights, int[] values, int totalWeight){
+        if(weights.length != values.length){
+            throw new Error("Weight and value count mismatch");
+        }
+        int n = weights.length;
+        int[][] memo = new int[n+1][totalWeight+1];
+        return optimizeKnapsackMem(weights, values, weights.length, memo, totalWeight);
+    }
+
+    private int optimizeKnapsackMem(int[] weights, int[] values, int nItemsConsidered, int[][] memo, int totalWeight){
+        if(nItemsConsidered==0 || totalWeight<=0){
+            return 0;
+        }
+
+        if(memo[nItemsConsidered][totalWeight]>0){
+            return memo[nItemsConsidered][totalWeight];
+        }
+
+        int valueWith, valueWithout = optimizeKnapsackMem(weights, values, nItemsConsidered -1, memo, totalWeight);
+        if(totalWeight>=weights[nItemsConsidered-1]){
+            valueWith = optimizeKnapsackMem(weights, values, nItemsConsidered -1, memo, totalWeight-weights[nItemsConsidered-1])+values[nItemsConsidered-1];
+        }else{
+            valueWith = -1;
+        }
+
+        int max = Math.max(valueWith, valueWithout);
+        memo[nItemsConsidered][totalWeight] = max;
+
+        return max;
+    }
+
+    public int optimizeKnapsackIter(int [] weights, int[] values, int totalWeight){
+        if(weights.length != values.length){
+            throw new Error("Weight and value count mismatch");
+        }
+        int nItemsMax = weights.length;
+        int[][] maxValues = new int[nItemsMax+1][totalWeight+1];
+
+        for(int nItems=0; nItems <= nItemsMax; nItems++){
+            for(int maxWeight=0; maxWeight <= totalWeight; maxWeight++){
+                if(nItems==0 || maxWeight ==0){
+                    maxValues[nItems][maxWeight] = 0;
+                }else{
+                    int valueWith, valueWithout = maxValues[nItems-1][maxWeight];
+                    if(maxWeight>=weights[nItems-1]){
+                        valueWith = maxValues[nItems-1][maxWeight-weights[nItems-1]]+values[nItems-1];
+                    }else{
+                        valueWith = -1;
+                    }
+                    maxValues[nItems][maxWeight] = Math.max(valueWith, valueWithout);
+                }
+            }
+        }
+        return maxValues[nItemsMax][totalWeight];
+    }
+
+
 
 }
 
