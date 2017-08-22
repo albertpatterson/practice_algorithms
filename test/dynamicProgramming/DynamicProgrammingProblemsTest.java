@@ -125,4 +125,16 @@ public class DynamicProgrammingProblemsTest {
         assertEquals(maxValueRec, maxValueMem);
         assertEquals(maxValueIter, maxValueMem);
     }
+
+    @Test
+    public void minMatrixOps(){
+
+        int[] dims = {1,5,1,5};
+
+        int expMinOps = 10;
+        int actMinOps = dp.minMatrixOps(dims);
+
+        assertEquals(expMinOps, actMinOps);
+    }
+
 }

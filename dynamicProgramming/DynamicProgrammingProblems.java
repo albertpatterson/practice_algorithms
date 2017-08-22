@@ -174,6 +174,34 @@ public class DynamicProgrammingProblems {
     }
 
 
+    public int minMatrixOps(int[] dims){
+
+        // dims records the rows in the first matrix and the columns in each matrix, corresponding to the index
+        int n = dims.length-1;
+        int[][] minVals = new int[n+1][n+1];
+
+        return minMatrixOps(dims, minVals, 1, n);
+    }
+
+    private int minMatrixOps(int[] dims, int[][] minVals, int first, int last){
+        if(first==last){
+            return 0;
+        }else if(minVals[first][last]!=0){
+            return minVals[first][last];
+        }
+
+        int testVal, minVal = Integer.MAX_VALUE;
+
+        for(int k = first; k<last; k++){
+            testVal = minMatrixOps(dims, minVals, first, k) + minMatrixOps(dims, minVals,k+1, last) + dims[first-1]*dims[k]*dims[k+1];
+            if(testVal<minVal){
+                minVal=testVal;
+            }
+        }
+        minVals[first][last] = minVal;
+        return minVal;
+    }
+
 
 }
 
