@@ -112,14 +112,12 @@ public class Sorter {
             for(int sortedIdx = unsortedLen; sortedIdx<values.length; sortedIdx++){
                 if(insertVal>values[sortedIdx]){
                     insertIdx=sortedIdx;
+                    swap(sortedIdx-1, sortedIdx);
                 }else{
                     break;
                 }
             }
-
-            for(int swapIdx = unsortedLen-1; swapIdx<insertIdx; swapIdx++){
-                swap(swapIdx, swapIdx+1);
-            }
+            
             if(unsortedLen>1) {
                 swap(0, insertIdx);
             }
