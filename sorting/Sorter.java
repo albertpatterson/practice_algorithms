@@ -72,4 +72,58 @@ public class Sorter {
         values[b] = temp;
 
     }
+
+
+
+    public void bubbleSort(){
+        int unsortedLen = values.length;
+
+        while(unsortedLen>0){
+            for(int idx = 0; idx<(unsortedLen-1); idx++){
+                if(values[idx]>values[idx+1]){
+                    swap(idx, idx+1);
+                }
+            }
+            unsortedLen--;
+        }
+    }
+
+    public void selectionSort(){
+        int unsortedLen = values.length;
+
+        while(unsortedLen>0){
+            int maxIdx = 0;
+            for(int idx=1; idx<unsortedLen; idx++){
+                if(values[idx]>values[maxIdx]){
+                    maxIdx = idx;
+                }
+            }
+            swap(maxIdx, unsortedLen-1);
+            unsortedLen--;
+        }
+    }
+
+    public void insertionSort(){
+        int unsortedLen = values.length-1;
+
+        while(unsortedLen>0){
+            int insertVal = values[0];
+            int insertIdx = unsortedLen-1;
+            for(int sortedIdx = unsortedLen; sortedIdx<values.length; sortedIdx++){
+                if(insertVal>values[sortedIdx]){
+                    insertIdx=sortedIdx;
+                }else{
+                    break;
+                }
+            }
+
+            for(int swapIdx = unsortedLen-1; swapIdx<insertIdx; swapIdx++){
+                swap(swapIdx, swapIdx+1);
+            }
+            if(unsortedLen>1) {
+                swap(0, insertIdx);
+            }
+            unsortedLen--;
+        }
+    }
 }
