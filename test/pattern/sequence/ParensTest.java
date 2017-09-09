@@ -14,12 +14,9 @@ public class ParensTest {
     @Test
     public void getValidParenSeqs() throws Exception {
 
-        int n = 4;
+        int n = 10;
 
         ArrayList<String> validSeqs = Parens.getValidParenSeqs(n);
-        int maxSeqCount = 2*n*(2*n-1);
-
-        assertTrue(maxSeqCount>=validSeqs.size());
 
         for(String seq : validSeqs){
             assertTrue(Parens.isParenSeqValid(seq));
