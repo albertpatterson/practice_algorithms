@@ -3,6 +3,8 @@ package dynamicProgramming;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 /**
@@ -31,5 +33,13 @@ public class SequenceTest {
                 assertEquals(expSeq[idx], longestSubseq[idx]);
             }
         }
+    }
+
+    @Test
+    public void getCombsUniqueEls(){
+        int[] ints = {1,4,67};
+        sequence = new Sequence(ints);
+        ArrayList<int[]> combs = sequence.getCombsUniqueEls();
+        System.out.println(combs);
     }
 }
