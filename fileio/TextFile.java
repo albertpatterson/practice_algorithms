@@ -25,22 +25,37 @@ public class TextFile {
 //    }
 
 
-    public void writeln(String filePath, String data) throws IOException {
-
+    private File createFile(String filePath) {
         File file = new File(filePath);
 
-        if(file.exists()){
+        if (!file.exists()) {
+            File parent = file.getParentFile();
+            if (!parent.exists()) {
+                parent.mkdirs();
+            }
+        }
+        return file;
+    }
+
+    public void writeln(String filePath, String data) throws IOException {
+
+        File checker = new File(filePath);
+
+        if(checker.exists()){
             data = String.format("\n%s", data);
         }
+
+        File file = createFile(filePath);
+
         FileWriter fileWriter = new FileWriter(file, true);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         bufferedWriter.write(data);
-
         bufferedWriter.close();
     }
 
     public void write(String filePath, String data,  boolean append) throws IOException {
-        FileWriter fileWriter = new FileWriter(filePath, append);
+        File file = createFile(filePath);
+        FileWriter fileWriter = new FileWriter(file, append);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
         bufferedWriter.write(data);
@@ -84,6 +99,7 @@ public class TextFile {
             while((line = bufferedReader.readLine())!=null){
                 lines.add(line);
             }
+            bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

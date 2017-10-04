@@ -1,6 +1,8 @@
 package fileio;
 
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.w3c.dom.Text;
 
@@ -13,14 +15,28 @@ import static org.junit.Assert.*;
  * Created by apatters on 10/3/2017.
  */
 public class TextFileTest {
-    private String filePath = "junk/file.txt";
+    private static String filePath = "junk/junk/junk/file.txt";
 
-    @Before
-    public void clearFile(){
+    @BeforeClass
+    public static void clearFile(){
         File file = new File(filePath);
 
         if(file.exists()){
             file.delete();
+        }
+    }
+
+    @AfterClass
+    public static void removeFileAndDirectory(){
+        File file = new File(filePath);
+
+        File dir = file;
+        boolean deleted = dir.delete();
+        System.out.println(deleted);
+        while((dir = dir.getParentFile()) !=null){
+            System.out.println(dir.getAbsolutePath());
+            deleted = dir.delete();
+            System.out.println(deleted);
         }
     }
 
